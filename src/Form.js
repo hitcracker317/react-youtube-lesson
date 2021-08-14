@@ -5,6 +5,7 @@ import { TabBodyContainer } from './components/TabBodyContainer'
 import { FormModal } from './components/formModal'
 
 import styled from 'styled-components'
+import { Hint } from './components/hint'
 
 const Label = styled.label`
   display: flex;
@@ -42,6 +43,7 @@ export const Form = ({ onAddFruits }) => {
           value={text}
           onChange={(event) => setText(event.target.value)}
         />
+        <Hint />
         <ButtonContainer>
           <FormButton>追加</FormButton>
         </ButtonContainer>
