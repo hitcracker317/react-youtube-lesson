@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import { List } from './List.js'
 import { Form } from './Form.js'
+import { withLoading } from './hoc/WithLoading.js'
 import { getFruits } from './fruits.js'
 
 const Header = styled.header`
@@ -24,18 +25,9 @@ const HeaderLi = styled.li`
   border-bottom: ${props => props.focused ? '2px solid #F44336' : 'none' };
 `
 
-function App() {
+function App({ data }) {
   const [tab, setTab] = useState('list')
-  const [fruits, setFruits] = useState([])
-
-  useEffect(() => {
-    fetchFruits()
-  }, [])
-
-  const fetchFruits = async() => {
-    const fruits = await getFruits()
-    setFruits(fruits)
-  }
+  const [fruits, setFruits] = useState(data)
 
   const addFruits = (fruit) => {
     setFruits([...fruits, fruit])
@@ -55,4 +47,4 @@ function App() {
   )
 }
 
-export default App;
+export default withLoading(App, getFruits);
