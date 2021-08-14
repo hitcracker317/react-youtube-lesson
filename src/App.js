@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import styled from 'styled-components'
 
 import { List } from './List.js'
 import { Form } from './Form.js'
-import { withLoading } from './hoc/WithLoading.js'
-import { getFruits } from './fruits.js'
 import { Header } from './components/header.js'
+import { ThemeContext } from './themeContext'
+
+const Container = styled.div`
+  height: 100%;
+  color: ${({ theme }) => theme.color};
+  background-color: ${({ theme }) => theme.backgroundColor};
+`
 
 function App({ data }) {
   const [tab, setTab] = useState('list')
@@ -15,12 +21,14 @@ function App({ data }) {
     setTab('list')
   }
 
+  const [theme] = useContext(ThemeContext)
+
   return (
-    <div>
+    <Container theme={theme}>
       <Header tab={ tab } setTab={ setTab } />
       { tab === 'list' ? <List fruits={fruits} /> : <Form onAddFruits={addFruits} /> }
-    </div>
+    </Container>
   )
 }
 
-export default withLoading(App, getFruits);
+export default App
